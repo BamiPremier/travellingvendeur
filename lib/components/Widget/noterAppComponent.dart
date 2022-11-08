@@ -1,7 +1,7 @@
 // ignore: must_be_immutable
 import 'package:get/get.dart';
-import 'package:travellingVendeur/components/button.dart';
-import 'package:travellingVendeur/components/commentForm.dart';
+import 'package:travellingVendeur/components/Button/button.dart';
+import 'package:travellingVendeur/components/Form/commentForm.dart';
 import 'package:travellingVendeur/styles/colorApp.dart';
 import 'package:flutter/material.dart';
 

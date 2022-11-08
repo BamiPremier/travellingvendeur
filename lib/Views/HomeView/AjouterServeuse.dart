@@ -1,25 +1,10 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:travellingVendeur/components/CappBar.dart';
-import 'package:travellingVendeur/components/VoyageComponent.dart';
-import 'package:travellingVendeur/components/agenceComponent.dart';
-import 'package:travellingVendeur/components/button.dart';
-import 'package:travellingVendeur/components/customBtn.dart';
-import 'package:travellingVendeur/components/formComponent2.dart';
-import 'package:travellingVendeur/components/infoContent.dart';
-import 'package:travellingVendeur/components/noterAppComponent.dart';
-import 'package:travellingVendeur/components/placeComponent.dart';
-import 'package:travellingVendeur/components/townComponet.dart';
-import 'package:travellingVendeur/styles/colorApp.dart';
+ 
+import 'package:travellingVendeur/components/Button/button.dart'; 
+import 'package:travellingVendeur/components/Form/formComponent2.dart';  
 import 'package:travellingVendeur/styles/textStyle.dart';
 import 'package:travellingVendeur/utils/functions/viewFunctions.dart';
-import 'package:flutter/material.dart';
-
-import 'package:get_storage/get_storage.dart';
-import 'package:travellingVendeur/utils/Services/routing.dart';
-import 'package:get/get.dart';
-import 'package:get/get_connect/connect.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:flutter/material.dart'; 
+import 'package:get/get.dart'; 
 
 class AjouterServeuse extends StatefulWidget {
   const AjouterServeuse({Key? key}) : super(key: key);
@@ -61,8 +46,8 @@ class _AjouterServeuseState extends State<AjouterServeuse> {
             left: Get.width * .02, right: Get.width * .02, top: kMarginTop),
         //  margin: const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0),
 
-        decoration:
-            BoxDecoration(gradient: GradientApp.blueR, borderRadius: radius),
+        // decoration:
+        //     BoxDecoration(gradient: GradientApp.blueR, borderRadius: radius),
         child: Column(
           children: [
             Container(

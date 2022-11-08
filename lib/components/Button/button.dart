@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:travellingVendeur/styles/colorApp.dart';
 
 class Button extends StatelessWidget {
@@ -32,7 +33,26 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return (state == true && state != null
         ? Container(
-            padding: EdgeInsets.only(top: 7, left: 10, right: 10, bottom: 7),
+            height: height,
+            width: width,
+            margin: margin,
+            alignment: Alignment.center,
+            padding: EdgeInsets.all(10),
+            decoration: new BoxDecoration(
+              borderRadius: BorderRadius.circular(borderRadius),
+              border: borderColor == null
+                  ? Border.all(color: Colors.black38)
+                  : Border.all(color: borderColor),
+              color: (enabled)
+                  ? (itemColor == null)
+                      ? ColorsApp.skyBlue
+                      : itemColor
+                  : Colors.grey,
+            ),
+            child: SpinKitCircle(
+              color: Colors.blue,
+              size: 40,
+            ),
           )
         : Container(
             height: height,

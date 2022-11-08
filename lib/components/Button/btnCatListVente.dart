@@ -3,24 +3,25 @@ import 'package:travellingVendeur/styles/colorApp.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class BtnCatList extends StatelessWidget {
-  var title, onTap, active;
+class BtnCatListVente extends StatelessWidget {
+  var title, onTap, active, pVal;
 
-  BtnCatList({this.active = false, this.title, this.onTap});
+  BtnCatListVente({this.active = false, this.title, this.onTap, this.pVal});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: onTap,
         child: Container(
-          width: Get.size.width * 0.17,
-          height: Get.size.height * 0.08,
+          width: Get.size.width * 0.3,
+          height: Get.size.height * 0.3,
           alignment: Alignment.center,
-          padding: EdgeInsets.all(10),
-          margin: EdgeInsets.all(10),
+          padding: EdgeInsets.all(this.pVal ?? 10),
+          margin: EdgeInsets.all(this.pVal ?? 10),
           decoration: new BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: (active) ? ColorsApp.blue : ColorsApp.grey,
+            color: /* (active) ?  */ ColorsApp
+                .bleuLight /* : Color(0x71755050) */,
           ),
           child: Text(
             title,

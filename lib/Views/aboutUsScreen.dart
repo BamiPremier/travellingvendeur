@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travellingVendeur/components/customBtn.dart';
+import 'package:travellingVendeur/components/Button/customBtn.dart';
 import 'package:travellingVendeur/utils/Services/routing.dart';
 
 class AboutUsScreen extends StatefulWidget {

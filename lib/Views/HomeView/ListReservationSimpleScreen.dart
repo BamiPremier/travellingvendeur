@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travellingVendeur/components/CappBar.dart';
-import 'package:travellingVendeur/components/HistoryComponent.dart';
-import 'package:travellingVendeur/components/btnCatList.dart';
-import 'package:travellingVendeur/components/formComponent.dart';
-import 'package:travellingVendeur/components/textform.dart';
+import 'package:travellingVendeur/components/Widget/HistoryComponent.dart'; 
 
 class ListReservationSimpleScreen extends StatefulWidget {
   const ListReservationSimpleScreen({Key? key}) : super(key: key);

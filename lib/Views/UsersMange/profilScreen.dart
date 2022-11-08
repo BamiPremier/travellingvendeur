@@ -1,21 +1,18 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:travellingVendeur/components/infoComponent.dart';
+import 'dart:io'; 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
-import 'package:get_storage/get_storage.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
+import 'package:get_storage/get_storage.dart'; 
 import 'package:jwt_decode/jwt_decode.dart';
-import 'package:travellingVendeur/components/button.dart';
+import 'package:travellingVendeur/components/Button/button.dart';
+import 'package:travellingVendeur/components/Widget/infoComponent.dart';
 // import 'package:travellingVendeur/components/informationComponent.dart';
 import 'package:travellingVendeur/styles/colorApp.dart';
 import 'package:travellingVendeur/utils/api/apiUrl.dart';
-import 'package:travellingVendeur/utils/provider/refresh_token.dart';
-import "package:provider/provider.dart";
+import 'package:travellingVendeur/utils/provider/refresh_token.dart'; 
 
 // ignore: must_be_immutable
 class ProfileUserScreen extends StatefulWidget {

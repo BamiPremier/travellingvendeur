@@ -1,7 +1,6 @@
-import 'package:travellingVendeur/components/button.dart';
-import 'package:travellingVendeur/components/contactUsComponent.dart';
-import 'package:travellingVendeur/components/formComponent.dart';
-import 'package:travellingVendeur/components/themeButton.dart';
+import 'package:travellingVendeur/components/Button/button.dart'; 
+import 'package:travellingVendeur/components/Form/formComponent.dart';
+import 'package:travellingVendeur/components/Button/themeButton.dart';
 import 'package:travellingVendeur/styles/colorApp.dart';
 import 'package:flutter/material.dart';
 

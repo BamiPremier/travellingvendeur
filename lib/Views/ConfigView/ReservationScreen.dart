@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:travellingVendeur/components/CappBar.dart';
-import 'package:travellingVendeur/components/HistoryComponent.dart';
-import 'package:travellingVendeur/components/InfoReservationComp.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:travellingVendeur/components/Widget/InfoReservationComp.dart';
 
 class ReservationScreen extends StatefulWidget {
   const ReservationScreen({Key? key}) : super(key: key);

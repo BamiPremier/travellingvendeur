@@ -1,13 +1,12 @@
 // ignore: must_be_immutable
 import 'package:get/get.dart';
 import 'package:travellingVendeur/styles/colorApp.dart';
-import 'package:flutter/material.dart';
-
+import 'package:flutter/material.dart'; 
 // ignore: must_be_immutable
 class PlaceComponent extends StatelessWidget {
-  var place, onTap, selectedId;
+  var place, onTap, selectedPlace, status;
 
-  PlaceComponent({this.place, this.onTap, this.selectedId});
+  PlaceComponent({this.place, this.status, this.onTap, this.selectedPlace});
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +14,16 @@ class PlaceComponent extends StatelessWidget {
       child: Container(
           height: Get.height * .8,
           width: Get.width * .8,
+          alignment: Alignment.center,
           padding: EdgeInsets.all(0),
           decoration: BoxDecoration(
-              color:
-                  (selectedId == place.toString()) ? Colors.blue : Colors.green,
+              color: (status == true)
+                  ? Colors.red
+                  : (selectedPlace == place.toString())
+                      ? Colors.blue
+                      : Colors.green,
               border: Border.all()),
-          child: Text('Place $place')),
+          child: Text(' $place')),
       onTap: onTap,
     );
   }

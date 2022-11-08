@@ -1,5 +1,5 @@
-import 'package:travellingVendeur/components/button.dart';
-import 'package:travellingVendeur/components/customBtn.dart';
+import 'package:travellingVendeur/components/Button/button.dart';
+import 'package:travellingVendeur/components/Button/customBtn.dart';
 import 'package:travellingVendeur/styles/colorApp.dart';
 import 'package:flutter/material.dart';
 
