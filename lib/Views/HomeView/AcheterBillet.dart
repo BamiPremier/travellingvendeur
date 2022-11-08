@@ -83,6 +83,7 @@ class _AcheterBilletState extends State<AcheterBillet> {
   }
 
   var message = '';
+  var message2 = '';
   Color color = ColorsApp.bleuLight;
   var acheteur = '1';
   formatData format = new formatData();
