@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travellingVendeur/components/Widget/HistoryComponent.dart'; 
+import 'package:travellingVendeur/components/Widget/HistoryComponent.dart';
+import 'package:travellingVendeur/components/Widget/LoadingComponent.dart';
+import 'package:travellingVendeur/model/data/VoyageModelX.dart';
+import 'package:travellingVendeur/styles/colorApp.dart';
+import 'package:travellingVendeur/utils/Services/requestServices.dart';
+import 'package:travellingVendeur/utils/functions/viewFunctions.dart';
 
 class ListReservationSimpleScreen extends StatefulWidget {
   const ListReservationSimpleScreen({Key? key}) : super(key: key);
@@ -13,6 +18,35 @@ class ListReservationSimpleScreen extends StatefulWidget {
 class _ListReservationSimpleScreenState
     extends State<ListReservationSimpleScreen> {
   bool focused = false;
+  bool ok = false;
+  List<Billet> _listReservation = [];
+  // ignore: must_call_super
+  getData() async {
+    await new ApiService().getHistoriqueBilletServeuse().then((value) {
+      setState(() {
+        print(value);
+        _listReservation = value;
+
+        ok = true;
+      });
+      // Timer(Duration(seconds: 15), () {
+      //   print('********************${counter}');
+      //   getData();
+      // });
+    }).catchError((e) {
+      ViewFunctions().verifiedConnection();
+      // Timer(Duration(seconds: 3), () {
+      //   print('********************${counter}');
+      //   getData();
+      // });
+      // getData();
+    });
+  }
+
+  @override
+  void initState() {
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,14 +151,17 @@ class _ListReservationSimpleScreenState
                                   fontSize: 16 /* , color: Colors.white */),
                               textAlign: TextAlign.center,
                             )),
-                        SingleChildScrollView(
-                            child: SizedBox(
-                          height: Get.height,
-                          child: ListView.builder(
-                            itemCount: 20,
-                            itemBuilder: (ctx, index) => HistoryComponent(),
-                          ),
-                        ))
+                        ok
+                            ? SingleChildScrollView(
+                                child: SizedBox(
+                                height: Get.height,
+                                child: ListView.builder(
+                                  itemCount: _listReservation.length,
+                                  itemBuilder: (ctx, index) => HistoryComponent(
+                                      reservation: _listReservation[index]),
+                                ),
+                              ))
+                            : new LoadingComponent().data
                       ]))))
         ],
       )),

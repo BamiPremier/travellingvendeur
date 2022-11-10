@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; 
+import 'package:get/get.dart';
 import 'package:travellingVendeur/components/Button/btnCatList.dart';
-import 'package:travellingVendeur/components/Widget/HistoryComponent.dart'; 
+import 'package:travellingVendeur/components/Widget/HistoryComponent.dart';
 
 class ListReservationScreen extends StatefulWidget {
   const ListReservationScreen({Key? key}) : super(key: key);
@@ -147,9 +147,10 @@ class _ListReservationScreenState extends State<ListReservationScreen> {
                             child: SizedBox(
                           height: Get.height,
                           child: ListView.builder(
-                            itemCount: 20,
-                            itemBuilder: (ctx, index) => HistoryComponent(),
-                          ),
+                              itemCount: 20,
+                              itemBuilder: (ctx, index) =>
+                                  Text('') //HistoryComponent(),
+                              ),
                         ))
                       ]))))
         ],

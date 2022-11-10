@@ -3,16 +3,19 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:travellingVendeur/components/Button/btnCatList.dart';
 import 'package:travellingVendeur/components/Button/button.dart';
 import 'package:travellingVendeur/components/Form/formComponent2.dart';
+import 'package:travellingVendeur/components/Widget/LoadingComponent.dart';
 import 'package:travellingVendeur/components/Widget/VoyageComponent.dart';
+import 'package:travellingVendeur/model/data/VoyageModelH.dart';
 import 'package:travellingVendeur/styles/colorApp.dart';
 import 'package:travellingVendeur/styles/textStyle.dart';
+import 'package:travellingVendeur/utils/Services/UserService.dart';
 import 'package:travellingVendeur/utils/Services/requestServices.dart';
 import 'package:travellingVendeur/utils/functions/viewFunctions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class GererVoyage extends StatefulWidget {
-  const GererVoyage({Key? key}) : super(key: key);
+class GererVoyage extends StatefulWidget with LoadingComponent {
+  GererVoyage({Key? key}) : super(key: key);
 
   @override
   _GererVoyageState createState() => _GererVoyageState();
@@ -21,18 +24,34 @@ class GererVoyage extends StatefulWidget {
 class _GererVoyageState extends State<GererVoyage> {
   int counter = 0;
   String selectedId = '';
+  // var _loading = new LoadingComponent().openLoadingDialog();
   // ignore: must_call_super
   bool ok1 = false;
-  List listVoyageX = [];
+  List<Datum> listVoyageX = [];
   List listDataV = [];
+  List<TrajetModel> listTrajet = [];
+  List<ListT> _listTypeV = [];
+  var dropdownvalueD = TrajetModel.fromJson({
+    "id": 0,
+    "libelle": "Douala - Yaounde",
+  });
+
+  var selectType = ListT.fromJson({
+    "id": 0,
+    "libelle": "Classic",
+  });
   // ignore: must_call_super
   getData() async {
     counter++;
-    await new ApiService().getDataVoyagePointVente(0).then((value) {
+    await new ApiService().getDataVoyagePointVente(1).then((value) {
       setState(() {
+        print('value**********************');
         print(value);
-        listVoyageX = value;
-
+        listVoyageX = value.data;
+        _listTypeV = value.listTypeVoyage;
+        listTrajet = value.listTrajet;
+        selectType = _listTypeV[0];
+        dropdownvalueD = listTrajet[0];
         ok1 = true;
       });
       Timer(Duration(seconds: 60), () {
@@ -51,18 +70,31 @@ class _GererVoyageState extends State<GererVoyage> {
 
   newVoyage() async {
     setState(() {
-      validator = true;
+      // validator = true;
     });
     var vf = new ViewFunctions();
-    var data = {};
+    var data = {
+      // "nomVoyage": nomV.value.text,
+      // "numeroVoyage": codeV.value.text,
+      // "status": true,
+      // "pointDeVente": nomV.value.text,
+      // "trajet": '/api/trajets/' + '${dropdownvalueD.id}',
+      // "user": '/api/users/' + '${UserService().id}',
+      // "typeVoyage": '/api/type_voyages/' + '${selectType.id}',
+      // "nombreDePlace": nmbrePlaceV.value.text,
+      // "heureDepart": 000
+    };
+    await GererVoyage().openLoadingDialog();
     var response = await new ApiService().newVoyage(data);
     if (response == true) {
+      Get.back();
       setState(() {
         validator = false;
       });
       vf.snackBar(
           'Voyage', 'Ajout de votre voyage reussi', ColorsApp.greenLight);
     } else {
+      Get.back();
       setState(() {
         validator = false;
       });
@@ -81,206 +113,12 @@ class _GererVoyageState extends State<GererVoyage> {
   TextEditingController codeV = TextEditingController();
   TextEditingController nmbrePlaceV = TextEditingController();
   // TextEditingController nmbrePlaceV = TextEditingController();
-  var _listTypeV = ['Classic', 'VIP'];
-  // List of items in our dropdown menu
-  var _listVoyage = [
-    'Voyage 1',
-    'Voyage 2',
-    'Voyage 3',
-    'Voyage 4',
-    'Voyage 5',
-    'Voyage 6',
-  ];
-
-  String selectVoyage = 'Voyage 1';
-  String selectType = 'Classic';
 
   bool focused = false;
   bool nouveau = false;
   bool analyse1 = false;
   bool analyse2 = false;
   bool retour = false;
-  // ignore: must_call_super
-  newVoyageD() async {
-    Get.defaultDialog(
-        title: 'Entrer les informations de ce voyage',
-        content: SafeArea(
-            child: SingleChildScrollView(
-                child: Column(children: [
-          Column(children: [
-            Column(
-              children: [
-                Container(
-                    margin: EdgeInsets.only(top: kMarginTop / 2),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          // padding: const EdgeInsets.all(20.0),
-                          child: FormComponent2(
-                            icon: Icons.account_circle,
-                            type: 0,
-                            // controller: name,
-                            enabled: true,
-                            hint: "Nom du voyage",
-                          ),
-                        ),
-                        Expanded(
-                          child: FormComponent2(
-                            marginBool: true,
-                            icon: Icons.account_circle,
-                            type: 0,
-                            // controller: name,
-                            enabled: true,
-                            hint: "Code du voyage",
-                          ),
-                        ),
-                      ],
-                    )),
-                Container(
-                    margin: EdgeInsets.only(top: kMarginTop / 4),
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                            margin:
-                                /* widget.marginBool
-            ? EdgeInsets.only(left: kMarginLeft / 5)
-            : */
-                                EdgeInsets.all(0),
-                            child: Column(
-                                // mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    child: Text("Trajet"),
-                                  ),
-                                  Container(
-                                      width: Get.width / 2.15,
-                                      // margin:
-                                      //     EdgeInsets.only(top: kMarginTop / 2),
-                                      padding: EdgeInsets.only(
-                                        left: Get.width * .08,
-                                        right: Get.width * .08,
-                                      ),
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey,
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: DropdownButton(
-                                        value: selectVoyage,
-
-                                        icon: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        // Array list of items
-                                        items: _listVoyage.map((String items) {
-                                          return DropdownMenuItem(
-                                            value: items,
-                                            child: Text(items),
-                                          );
-                                        }).toList(),
-                                        // After selecting the desired option,it will
-                                        // change button value to selected value
-                                        onChanged: (String? newValue) {
-                                          setState(() {
-                                            selectVoyage = newValue!;
-                                          });
-                                        },
-                                      ))
-                                ])),
-                        Container(
-                            margin: EdgeInsets.only(left: kMarginLeft / 5),
-                            child: Column(
-                                // mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    child: Text("Type de voyage"),
-                                  ),
-                                  Container(
-                                      width: Get.width / 2.23,
-                                      padding: EdgeInsets.only(
-                                        left: Get.width * .08,
-                                        right: Get.width * .08,
-                                      ),
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey,
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: DropdownButton(
-                                        value: selectType,
-
-                                        icon: const Icon(
-                                            Icons.keyboard_arrow_down),
-                                        // Array list of items
-                                        items: _listTypeV.map((String items) {
-                                          return DropdownMenuItem(
-                                            value: items,
-                                            child: Text(items),
-                                          );
-                                        }).toList(),
-                                        // After selecting the desired option,it will
-                                        // change button value to selected value
-                                        onChanged: (String? newValue) {
-                                          setState(() {
-                                            selectType = newValue!;
-                                          });
-                                        },
-                                      ))
-                                ])),
-                      ],
-                    )),
-                Container(
-                    margin: EdgeInsets.only(top: kMarginTop / 4),
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: FormComponent2(
-                            icon: Icons.account_circle,
-                            type: 0,
-                            // controller: name,
-                            enabled: true,
-                            hint: "Nombre de place",
-                          ),
-                        ),
-                        Expanded(
-                          child: FormComponent2(
-                            marginBool: true,
-
-                            icon: Icons.account_circle,
-                            type: 0,
-                            // controller: name,
-                            enabled: true,
-                            hint: "Heure de depart",
-                          ),
-                        ),
-                      ],
-                    )),
-                Button(
-                    margin: EdgeInsets.only(top: kMarginTop / 2),
-                    borderRadius: 15.0,
-                    width: Get.size.width,
-                    height: Get.size.height * .08,
-                    loaderColor: Colors.white,
-                    title: "Ajouter voyage",
-                    textColor: Colors.white,
-                    itemColor: Colors.green,
-                    borderColor: Colors.transparent,
-                    state: validator,
-                    enabled: true,
-                    onTap: () async {
-                      print('choisir');
-                      setState(() {
-                        validator = true;
-                      });
-                    }),
-              ],
-            )
-          ]),
-        ]))));
-  }
-
   bool validator = false;
   @override
   Widget build(BuildContext context) {
@@ -469,7 +307,7 @@ class _GererVoyageState extends State<GererVoyage> {
                                                           controller: codeV,
                                                           enabled: true,
                                                           hint:
-                                                              "Code du voyage",
+                                                              "Numero du voyage",
                                                         ),
                                                       ),
                                                     ],
@@ -521,31 +359,26 @@ class _GererVoyageState extends State<GererVoyage> {
                                                                     child:
                                                                         DropdownButton(
                                                                       value:
-                                                                          selectVoyage,
+                                                                          dropdownvalueD,
 
                                                                       icon: const Icon(
                                                                           Icons
                                                                               .keyboard_arrow_down),
                                                                       // Array list of items
-                                                                      items: _listVoyage.map(
-                                                                          (String
-                                                                              items) {
-                                                                        return DropdownMenuItem(
-                                                                          value:
-                                                                              items,
-                                                                          child:
-                                                                              Text(items),
-                                                                        );
-                                                                      }).toList(),
+                                                                      items: listTrajet
+                                                                          .map((TrajetModel items) => DropdownMenuItem(
+                                                                                value: items,
+                                                                                child: Text(items.libelle),
+                                                                              ))
+                                                                          .toList(),
                                                                       // After selecting the desired option,it will
                                                                       // change button value to selected value
                                                                       onChanged:
-                                                                          (String?
-                                                                              newValue) {
+                                                                          (newValue) {
                                                                         setState(
                                                                             () {
-                                                                          selectVoyage =
-                                                                              newValue!;
+                                                                          this.dropdownvalueD =
+                                                                              (newValue as TrajetModel);
                                                                         });
                                                                       },
                                                                     ))
@@ -594,25 +427,20 @@ class _GererVoyageState extends State<GererVoyage> {
                                                                           Icons
                                                                               .keyboard_arrow_down),
                                                                       // Array list of items
-                                                                      items: _listTypeV.map(
-                                                                          (String
-                                                                              items) {
-                                                                        return DropdownMenuItem(
-                                                                          value:
-                                                                              items,
-                                                                          child:
-                                                                              Text(items),
-                                                                        );
-                                                                      }).toList(),
+                                                                      items: _listTypeV
+                                                                          .map((ListT items) => DropdownMenuItem(
+                                                                                value: items,
+                                                                                child: Text(items.libelle),
+                                                                              ))
+                                                                          .toList(),
                                                                       // After selecting the desired option,it will
                                                                       // change button value to selected value
                                                                       onChanged:
-                                                                          (String?
-                                                                              newValue) {
+                                                                          (newValue) {
                                                                         setState(
                                                                             () {
                                                                           selectType =
-                                                                              newValue!;
+                                                                              newValue as ListT;
                                                                         });
                                                                       },
                                                                     ))
@@ -668,6 +496,7 @@ class _GererVoyageState extends State<GererVoyage> {
                                                   enabled: true,
                                                   onTap: () async {
                                                     await newVoyage();
+                                                    // _loading;
                                                   }),
                                             ],
                                           )
@@ -687,11 +516,13 @@ class _GererVoyageState extends State<GererVoyage> {
                                                 : SizedBox(
                                                     height: Get.height,
                                                     child: ListView.builder(
-                                                      itemCount: 20,
+                                                      itemCount:
+                                                          listVoyageX.length,
                                                       itemBuilder:
                                                           (ctx, index) =>
                                                               VoyageComponent(
-                                                        index: index,
+                                                        voyage:
+                                                            listVoyageX[index],
                                                         onTap: () {
                                                           setState(() {
                                                             retour = false;

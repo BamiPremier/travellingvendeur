@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:travellingVendeur/model/data/UserModel.dart';
 
 class StorageService extends GetxService {
   late GetStorage _box;
@@ -20,5 +23,8 @@ class StorageService extends GetxService {
 
   Future<void> deleteStorage() async {
     await _box.erase();
+  }
+ UserModel  getUser() {
+    return jsonDecode(this.find('user'));
   }
 }

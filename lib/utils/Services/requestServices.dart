@@ -6,6 +6,8 @@ import 'package:get_storage/get_storage.dart';
 // import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:toast/toast.dart';
+import 'package:travellingVendeur/model/data/VoyageModelH.dart';
+import 'package:travellingVendeur/model/data/VoyageModelX.dart';
 import 'package:travellingVendeur/styles/colorApp.dart';
 import 'package:travellingVendeur/utils/api/apiUrl.dart';
 
@@ -15,7 +17,8 @@ class ApiService extends GetConnect {
     httpClient.baseUrl = ApiUrl.baseUrl;
     print('init********00');
   }
- buyBillet(data) async {
+
+  buyBillet(data) async {
     try {
       var response = await post(ApiUrl.baseUrl + "/billet/buy2", data);
 
@@ -24,7 +27,7 @@ class ApiService extends GetConnect {
             ? ColorsApp.greenLight
             : ColorsApp.bleuLight,
         "message": response.body['message'],
-        "status" : response.statusCode
+        "status": response.statusCode
       };
     } catch (error, stacktrace) {
       print("voici error du get unique: $error");
@@ -77,16 +80,19 @@ class ApiService extends GetConnect {
     }
   }
 
-  Future<List> getHistoriqueBilletServeuse() async {
+  Future<List<Billet>> getHistoriqueBilletServeuse() async {
     try {
-      var response = await get(ApiUrl.baseUrl + "/pointvente/voyage/readAll");
+      var response = await post(
+          ApiUrl.baseUrl + "/billet/read/acheteur", {'secretKey': 1});
       if (response.statusCode == 200) {
-        return (response.body['data'] as List).toList();
+        return (response.body['data'] as List)
+            .map((e) => Billet.fromJson(e))
+            .toList();
       } else {
         return [];
       }
     } catch (error, stacktrace) {
-      print("voici error du get unique: $error");
+      print("voiccccccccccce: $error");
       throw Exception("Exception occured: $error stackTrace: $stacktrace");
     }
   }
@@ -113,12 +119,14 @@ class ApiService extends GetConnect {
 /**
  *  Start Section voyage 
  */
-  Future<List> getDataVoyagePointVente(idPointDeVente) async {
+  Future getDataVoyagePointVente(idPointDeVente) async {
     try {
       print(ApiUrl.baseUrl + "/pointvente/voyage/readAll");
-      var response = await post(ApiUrl.baseUrl + "/pointvente/voyage/readAll", {"idPointDeVente": idPointDeVente});
+      var response = await post(ApiUrl.baseUrl + "/pointvente/voyage/readAll",
+          {"idPointDeVente": idPointDeVente});
+
       if (response.statusCode == 200) {
-        return (response.body['data'] as List).toList();
+        return VoyageModelH.fromJson(response.body);
       } else {
         return [];
       }

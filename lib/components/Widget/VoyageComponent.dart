@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travellingVendeur/model/data/VoyageModelH.dart';
 import 'package:travellingVendeur/styles/colorApp.dart';
 
 class VoyageComponent extends StatelessWidget {
-  VoyageComponent({this.index, this.onTap});
-  var index, onTap;
+  VoyageComponent({required this.voyage, this.onTap});
+  var  onTap;
+ Datum voyage;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -53,37 +55,37 @@ class VoyageComponent extends StatelessWidget {
                       margin: EdgeInsets.only(left: Get.width * .017),
                       alignment: Alignment.topLeft,
                       child: Text(
-                        'Agence $index',
+                        '${voyage.nomVoyage}',
                         // style: TextStyle(fontWeight: FontWeight.bold),
                       )),
                   Container(
                       margin: EdgeInsets.only(left: Get.width * .017),
                       alignment: Alignment.topLeft,
                       child: Text(
-                        'Lieux $index',
+                        '${voyage.pointVente}',
                         // style: TextStyle(fontWeight: FontWeight.bold),
                       )),
                   Container(
                       margin: EdgeInsets.only(left: Get.width * .017),
                       alignment: Alignment.topLeft,
                       child: Text(
-                        'Heure de depart : 8H00',
+                        '${voyage.heureDepart}',
                         // style: TextStyle(fontWeight: FontWeight.bold),
                       )),
                   Container(
                       margin: EdgeInsets.only(left: Get.width * .017),
                       alignment: Alignment.topLeft,
                       child: Text(
-                        'Ville de depart $index',
+                        '${voyage.nomTrajet}',
                         // style: TextStyle(fontWeight: FontWeight.bold),
                       )),
-                  Container(
-                      margin: EdgeInsets.only(left: Get.width * .017),
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        'Ville d\'arrivee $index',
-                        // style: TextStyle(fontWeight: FontWeight.bold),
-                      ))
+                  // Container(
+                  //     margin: EdgeInsets.only(left: Get.width * .017),
+                  //     alignment: Alignment.topLeft,
+                  //     child: Text(
+                  //       '${voyage}',
+                  //       // style: TextStyle(fontWeight: FontWeight.bold),
+                  //     ))
                 ]))
           ],
         ),

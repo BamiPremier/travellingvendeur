@@ -1,10 +1,10 @@
 import 'dart:async';
- 
-import 'package:flutter_spinkit/flutter_spinkit.dart'; 
+
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:travellingVendeur/components/Button/btnCatList.dart';
-import 'package:travellingVendeur/components/Button/button.dart'; 
+import 'package:travellingVendeur/components/Button/button.dart';
 import 'package:travellingVendeur/components/Form/formComponent2.dart';
-import 'package:travellingVendeur/components/Widget/VoyageComponent.dart'; 
+import 'package:travellingVendeur/components/Widget/VoyageComponent.dart';
 import 'package:travellingVendeur/styles/colorApp.dart';
 import 'package:travellingVendeur/styles/textStyle.dart';
 import 'package:travellingVendeur/utils/Services/requestServices.dart';
@@ -34,7 +34,7 @@ class _GererServeuseState extends State<GererServeuse> {
   // ignore: must_call_super
   getData() async {
     counter++;
-    await new ApiService().getDataVoyagePointVente(0).then((value) {
+    await new ApiService().getDataVoyagePointVente(1).then((value) {
       setState(() {
         print(value);
         listVoyageX = value;
@@ -418,20 +418,21 @@ class _GererServeuseState extends State<GererServeuse> {
                                                 : SizedBox(
                                                     height: Get.height,
                                                     child: ListView.builder(
-                                                      itemCount: 20,
-                                                      itemBuilder:
-                                                          (ctx, index) =>
-                                                              VoyageComponent(
-                                                        index: index,
-                                                        onTap: () {
-                                                          setState(() {
-                                                            retour = false;
-                                                            analyse2 =
-                                                                !analyse2;
-                                                          });
-                                                        },
-                                                      ),
-                                                    ),
+                                                        itemCount: 20,
+                                                        itemBuilder:
+                                                            (ctx, index) =>
+                                                                Text('d')
+                                                        //         VoyageComponent(
+                                                        //   index: index,
+                                                        //   onTap: () {
+                                                        //     setState(() {
+                                                        //       retour = false;
+                                                        //       analyse2 =
+                                                        //           !analyse2;
+                                                        //     });
+                                                        //   },
+                                                        // ),
+                                                        ),
                                                   ))
                               ]))))
                 ],
